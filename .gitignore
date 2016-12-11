@@ -1,0 +1,15 @@
+# OS files
+.DS_Store
+
+# Project files
+*.sublime-project
+*.sublime-workspace
+
+# Log files
+*.log
+*.sql
+*.sqlite
+
+# Whitelist
+!.gitignore
+ 
