@@ -61,10 +61,13 @@ function DbService($q, $http) {
                         }
                     }
                     else if (typeof(filterValue) === 'object') {
-                        for (var i = 0; i < results.rows.length; ++i) {
-                            for (var j = 0; j < filterValue.length; ++j) {
-                                arr.push(results.rows.item(i)[filterValue[j]]);
+                        for (var j = 0; j < filterValue.length; ++j) {
+                            var values = [];
+                            var filter = filterValue[j];
+                            for (var i = 0; i < results.rows.length; ++i) {
+                                values.push(results.rows.item(i)[filter]);
                             }
+                            arr.push(values);
                         }
                     }
                     else {
@@ -79,34 +82,6 @@ function DbService($q, $http) {
                 });
             });
         })
-
-        return deferred.promise;
-    }
-
-    self.select = function(table, columns, params, includeLabels = true) {
-
-        if (typeof(columns) === 'string') {
-            var query = 'SELECT (' + columns + ') FROM ' + table;
-        }
-        else {
-            var query = 'SELECT * FROM ' + table;
-        }
-        if (typeof(params) === 'string') {
-            query += ' ' + params;
-        }
-
-        self.getDb().then(function(db) {
-            db.transaction(function(tx) {
-                tx.executeSql(query, [], function(tx, results) {
-                    var arr = [];
-
-                    deferred.resolve(results.rows);
-                }, function(tx, e) {
-                    console.log(e);
-                    deferred.reject(e);
-                });
-            });
-        });
 
         return deferred.promise;
     }

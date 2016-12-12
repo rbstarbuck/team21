@@ -9,8 +9,10 @@ function StandingsController($q, DbService) {
 
 	DbService.query(
 		"SELECT * FROM Users ORDER BY ? + ? + ? DESC", // the query string
-		["bottleCount", "canCount", "boxCount"], // optional: replaces any '?' in query string
-		["bottleCount", "canCount", "boxCount"]) // optional: returned array will have values only (else keys are included and each array item is an object); specify values with string (for one value) or array
+		["bottleCount", "canCount", "boxCount"], // optional: replaces any '?' in query string (string or array)
+		["bottleCount", "canCount", "boxCount"]) // optional: returned array will contain the values (not keys) associated with these keys
+												 //   if an array of keys is passed, an array (by key) of arrays (by row) is returned
+												 //   if a single key (string) is passed, a single array of values is returned
 	.then(function(data) {
 		self.users = JSON.stringify(data);
 	});
@@ -31,20 +33,15 @@ function StandingsController($q, DbService) {
 			}]
 		}
 	}
-	
+
 	self.chartLabels = [];
 	self.chartData = [];
 	self.chartSeries = ['bottleCount', 'canCount', 'boxCount'];
 	self.orderBy = 'bottleCount + canCount + boxCount DESC';
 
 	var getChartData = function() {
-		var query = 'SELECT (?) FROM Users ORDER BY ' + self.orderBy;
-		$q.all([
-			DbService.query('SELECT name FROM Users ORDER BY ?', self.orderBy, 'name'),
-			DbService.query('SELECT bottleCount FROM Users ORDER BY ?', self.orderBy, 'bottleCount'),
-			DbService.query('SELECT canCount FROM Users ORDER BY ?', self.orderBy, 'canCount'),
-			DbService.query('SELECT boxCount FROM Users ORDER BY ?', self.orderBy, 'boxCount')
-		]).then(function(data) {
+		DbService.query('SELECT * FROM Users ORDER BY ?', self.orderBy, ['name', 'bottleCount', 'canCount', 'boxCount'])
+		.then(function(data) {
 			self.chartLabels = data[0];
 			self.chartData = [data[1], data[2], data[3]];
 		});
