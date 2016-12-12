@@ -2,9 +2,10 @@ var team21App = angular.module('team21App');
 
 
 function DbService($q, $http) {
+    var self = this;
 
     var dbCache = null;
-    this.getDb = function() {
+    self.getDb = function() {
         if (!dbCache) {
             deferred = $q.defer();
             dbCache = deferred.promise;
@@ -43,21 +44,66 @@ function DbService($q, $http) {
         return dbCache;
     }
 
-    this.selectAll = function(table, where) {
+    self.query = function(q, params = [], filterValue = undefined) {
         var deferred = $q.defer();
 
-        var query = 'SELECT * FROM ' + table;
-        if (typeof(where) === 'string') {
-            query += ' WHERE ' + where;
+        self.getDb()
+        .then(function(db) {
+            if (typeof(params) === 'string') {
+                params = [params];
+            }
+            db.transaction(function(tx) {
+                tx.executeSql(q, params, function(tx, results) {
+                    var arr = [];
+                    if (typeof(filterValue) === 'string') {
+                        for (var i = 0; i < results.rows.length; ++i) {
+                            arr.push(results.rows.item(i)[filterValue]);
+                        }
+                    }
+                    else if (typeof(filterValue) === 'object') {
+                        for (var i = 0; i < results.rows.length; ++i) {
+                            for (var j = 0; j < filterValue.length; ++j) {
+                                arr.push(results.rows.item(i)[filterValue[j]]);
+                            }
+                        }
+                    }
+                    else {
+                        for (var i = 0; i < results.rows.length; ++i) {
+                            arr.push(results.rows.item(i));
+                        }
+                    }
+                    deferred.resolve(arr);
+                }, function(tx, err) {
+                    console.log(err);
+                    deferred.reject(err);
+                });
+            });
+        })
+
+        return deferred.promise;
+    }
+
+    self.select = function(table, columns, params, includeLabels = true) {
+
+        if (typeof(columns) === 'string') {
+            var query = 'SELECT (' + columns + ') FROM ' + table;
+        }
+        else {
+            var query = 'SELECT * FROM ' + table;
+        }
+        if (typeof(params) === 'string') {
+            query += ' ' + params;
         }
 
-        this.getDb()
-        .then(function(db) {
+        self.getDb().then(function(db) {
             db.transaction(function(tx) {
                 tx.executeSql(query, [], function(tx, results) {
+                    var arr = [];
+
                     deferred.resolve(results.rows);
                 }, function(tx, e) {
                     console.log(e);
+                    deferred.reject(e);
                 });
             });
         });
