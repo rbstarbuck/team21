@@ -2,20 +2,28 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 
-  <title>Recyclical</title> <!--TODO: change title -->
-  <meta name="description" content=""> <!-- TODO: add description -->
-  <meta name="author" content="EECS 493 Team 21">
+    <title>Recyclical</title> <!--TODO: change title -->
+    <meta name="description" content=""> <!-- TODO: add description -->
+    <meta name="author" content="EECS 493 Team 21">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/app.css">
+    <!-- Libraries -->
+    <link rel="stylesheet" href="lib/bootstrap.min.css">
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/Chart.bundle.min.js"></script>
 
-  <!-- JavaScript -->
-  <script src="js/app.js"></script>
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="app.css">
+
+    <!-- Local JS -->
+    <script src="app.js"></script>
+    <script src="core/db.service.js"></script>
+    <script src="standings/standings.component.js"></script>
 </head>
 
-<body>
+<body ng-app="team21App">
+    <standings></standings>
 </body>
 
 </html>

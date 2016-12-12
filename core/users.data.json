@@ -1,0 +1,37 @@
+{
+    "data": [
+        {
+            "name": "John Fivero",
+            "username": "Johnny5",
+            "password": "Johnny5",
+            "dorm": "Northwood",
+            "recyclables": {
+                "bottles": 5,
+                "cans": 3,
+                "boxes": 7
+            }
+        },
+        {
+            "name": "Michael Rotch",
+            "username": "killer_mike",
+            "password": "killer_mike",
+            "dorm": "Northwood",
+            "recyclables": {
+                "bottles": 9,
+                "cans": 0,
+                "boxes": 0
+            }
+        },
+        {
+            "name": "Walter Laseki",
+            "username": "Walter",
+            "password": "Walter",
+            "dorm": "East Quad",
+            "recyclables": {
+                "bottles": 5,
+                "cans": 3,
+                "boxes": 0
+            }
+        }
+    ]
+}
