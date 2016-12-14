@@ -4,7 +4,7 @@
             "name": "John Fivero",
             "username": "Johnny5",
             "password": "Johnny5",
-            "dorm": "Northwood",
+            "dorm": "East Quad",
             "recyclables": {
                 "bottles": 5,
                 "cans": 3,
@@ -15,10 +15,10 @@
             "name": "Michael Rotch",
             "username": "killer_mike",
             "password": "killer_mike",
-            "dorm": "Northwood",
+            "dorm": "East Quad",
             "recyclables": {
-                "bottles": 9,
-                "cans": 0,
+                "bottles": 5,
+                "cans": 3,
                 "boxes": 0
             }
         },
@@ -26,10 +26,10 @@
             "name": "Walter Laseki",
             "username": "Walter",
             "password": "Walter",
-            "dorm": "East Quad",
+            "dorm": "Northwood",
             "recyclables": {
-                "bottles": 5,
-                "cans": 3,
+                "bottles": 9,
+                "cans": 0,
                 "boxes": 0
             }
         }

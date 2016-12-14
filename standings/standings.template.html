@@ -1,10 +1,53 @@
-<p>Users: {{$ctrl.users}}</p>
-<p>Dorms: {{$ctrl.dorms}}</p>
-<div>
-	<canvas id="standings-chart"
-			class="chart chart-horizontal-bar"
-			chart-data="$ctrl.chartData"
-			chart-labels="$ctrl.chartLabels"
-			chart-series="$ctrl.chartSeries"
-			chart-options="$ctrl.chartOptions"></canvas>
+<p>Users: {{$ctrl.usersString}}</p>
+<p>Dorms: {{$ctrl.dormsString}}</p>
+
+<!-- display controls -->
+<div id="standings-controls">
+
+    <!-- data source selection (e.g. by individual/dorm) -->
+    <span class="dropdown-label">Scores for</span>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+            {{$ctrl.dataSource}}
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" ng-repeat="item in $ctrl.dataSources"
+               ng-click="$ctrl.dataSource = item; $ctrl.invalidateChart()" href>{{item}}</a>
+        </div>
+    </div>
+
+    <!-- dorm selection (if data source is Individuals) -->
+    <div ng-show="$ctrl.dataSource == 'Individuals'">
+        <span class="dropdown-label">in</span>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                {{$ctrl.dorm}}
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" ng-repeat="item in $ctrl.dorms"
+                   ng-click="$ctrl.dorm = item; $ctrl.invalidateChart()" href>{{item}}</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- order-by selection -->
+    <span class="dropdown-label">ordered by</span>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+            {{$ctrl.orderBy}}
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" ng-repeat="item in $ctrl.orderBys"
+               ng-click="$ctrl.orderBy = item; $ctrl.invalidateChart()" href>{{item}}</a>
+        </div>
+    </div>
+    <input type="checkbox" ng-model="$ctrl.orderByIsReversed" ng-change="$ctrl.invalidateChart()">in reverse</input>
+
+</div>
+
+<!-- chart -->
+<div id="standings-chart-container">
+    <canvas id="standings-chart" class="chart chart-horizontal-bar"
+            chart-data="$ctrl.chartData" chart-labels="$ctrl.chartLabels"
+            chart-series="$ctrl.chartSeries" chart-options="$ctrl.chartOptions"></canvas>
 </div>
