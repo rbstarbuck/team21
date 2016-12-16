@@ -1,0 +1,86 @@
+<!-- swap 'login' and 'register' elements with ngSwitch -->
+<form ng-switch="$ctrl.mode">
+
+    <!-- header -->
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$ctrl.close()">&times;</button>
+
+        <h3 ng-switch-when="login" class="modal-title" id="modal-title">Login</h3>
+        <h3 ng-switch-when="register" class="modal-title" id="modal-title">Register</h3>
+    </div>
+
+    <!-- body (login mode) -->
+    <div ng-switch-when="login" class="modal-body row flex-items-xs-middle">
+        <div class="col-sm-2 col-xs-4 login-form-label">Uniqname</div>
+        <div class="col-sm-4 col-xs-8 login-form-input">
+            <input type="text" class="form-control"
+                   ng-model="$ctrl.loginUsername" ng-click="$ctrl.loginErrorMessage = null"/>
+        </div>
+
+        <div class="col-sm-2 col-xs-4 login-form-label">Password</div>
+        <div class="col-sm-4 col-xs-8 login-form-input">
+            <input type="password" class="form-control"
+                   ng-model="$ctrl.loginPassword" ng-click="$ctrl.loginErrorMessage = null"/>
+        </div>
+
+        <p class="col-xs-12 form-footer-message">Don't have an account? <a ng-click="$ctrl.mode = 'register'" href>Create one</a>!</p>
+
+        <p class="col-xs-12 form-error-message" ng-show="$ctrl.loginErrorMessage">{{$ctrl.loginErrorMessage}}</p>
+    </div>
+
+    <!-- body (register mode) -->
+    <div ng-switch-when="register" class="modal-body row flex-items-xs-middle">
+        <div class="col-sm-4 col-xs-5 login-form-label">Uniqname</div>
+        <div class="col-sm-8 col-xs-7 login-form-input">
+            <input type="text" class="form-control"
+                   ng-model="$ctrl.registerUsername" ng-click="$ctrl.registerErrorMessage = null"/>
+        </div>
+
+        <div class="col-sm-4 col-xs-5 login-form-label">Dorm</div>
+        <div class="col-sm-8 col-xs-7 login-form-input">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                    {{$ctrl.registerDorm}}
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" ng-repeat="item in $ctrl.dorms"
+                       ng-click="$ctrl.registerDorm = item" href>{{item}}</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-xs-5 login-form-label">Display Name</div>
+        <div class="col-sm-8 col-xs-7 login-form-input">
+            <input type="text" class="form-control"
+                   ng-model="$ctrl.registerDisplayName" ng-click="$ctrl.registerErrorMessage = null"/>
+        </div>
+
+        <div class="col-sm-4 col-xs-5 login-form-label">Password</div>
+        <div class="col-sm-8 col-xs-7 login-form-input">
+            <input type="password" class="form-control"
+                   ng-model="$ctrl.registerPassword" ng-click="$ctrl.registerErrorMessage = null"/>
+        </div>
+
+        <div class="col-sm-4 col-xs-5 login-form-label">Confirm</div>
+        <div class="col-sm-8 col-xs-7 login-form-input">
+            <input type="password" class="form-control"
+                   ng-model="$ctrl.registerConfirmPassword" ng-click="$ctrl.registerErrorMessage = null"/>
+        </div>
+
+        <p class="col-xs-12 form-footer-message">Already have an account? <a ng-click="$ctrl.mode = 'login'" href>Login</a>!</p>
+
+        <p class="col-xs-12 form-error-message" ng-show="$ctrl.registerErrorMessage">{{$ctrl.registerErrorMessage}}</p>
+    </div>
+
+    <!-- footer -->
+    <div class="modal-footer">
+        <button ng-switch-when="login" class="btn btn-primary" type="submit"
+                ng-click="$ctrl.login()">Login</button>
+
+        <button ng-switch-when="register" class="btn btn-primary" type="submit"
+                ng-click="$ctrl.register()">Create Account</button>
+
+        <button class="btn btn-danger" type="button" ng-click="$ctrl.close(false)">Cancel</button>
+    </div>
+
+</form>

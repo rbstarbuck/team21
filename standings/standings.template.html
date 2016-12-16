@@ -5,7 +5,7 @@
 <div id="standings-controls">
 
     <!-- data source selection (e.g. by individual/dorm) -->
-    <span class="dropdown-label">Scores for</span>
+    <span class="dropdown-label">Scores For</span>
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
             {{$ctrl.dataSource}}
@@ -18,7 +18,7 @@
 
     <!-- dorm selection (if data source is Individuals) -->
     <div ng-show="$ctrl.dataSource == 'Individuals'">
-        <span class="dropdown-label">in</span>
+        <span class="dropdown-label">In</span>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
                 {{$ctrl.dorm}}
@@ -31,7 +31,7 @@
     </div>
 
     <!-- order-by selection -->
-    <span class="dropdown-label">ordered by</span>
+    <span class="dropdown-label">Ordered By</span>
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
             {{$ctrl.orderBy}}
@@ -41,7 +41,12 @@
                ng-click="$ctrl.orderBy = item; $ctrl.invalidateChart()" href>{{item}}</a>
         </div>
     </div>
-    <input type="checkbox" ng-model="$ctrl.orderByIsReversed" ng-change="$ctrl.invalidateChart()">in reverse</input>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" value="" ng-model="$ctrl.orderByIsReversed" ng-change="$ctrl.invalidateChart()"/>
+            Reverse
+        </label>
+    </div>
 
 </div>
 

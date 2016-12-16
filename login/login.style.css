@@ -1,0 +1,24 @@
+.login-form-label {
+    text-align: right;
+}
+
+.login-form-input {
+    margin: 0.3em 0;
+}
+
+.login-form-input .dropdown-menu {
+    height: auto;
+    max-height: 15em;
+    overflow-x: hidden;
+}
+
+.form-error-message {
+    font-weight: 600;
+    color: red;
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+.form-footer-message {
+    margin-top: 1em;
+}
