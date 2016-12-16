@@ -4,6 +4,18 @@ var team21App = angular.module('team21App');
 function DbService($q, $http) {
     var self = this;
 
+    var onChangeListeners = [];
+
+    self.addOnChangeListener = function(listener) {
+        onChangeListeners.push(listener);
+    }
+
+    var signalOnChangeListeners = function() {
+        for (var i = 0; i < onChangeListeners.length; ++i) {
+            onChangeListeners[i]();
+        }
+    }
+
     var dbCache = null;
     self.getDb = function() {
         if (!dbCache) { // first getDb() call, initialize cache
@@ -95,6 +107,9 @@ function DbService($q, $http) {
                     }
 
                     // done, resolve promise
+                    if (!q.toLowerCase().startsWith("select")) {
+                        signalOnChangeListeners();
+                    }
                     deferred.resolve(arr);
                 // log SQL query errors if they occur
                 }, function(tx, err) {

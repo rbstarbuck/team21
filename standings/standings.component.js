@@ -3,19 +3,38 @@ var team21App = angular.module('team21App');
 
 var initStandingsController = function($ctrl, DbService) {
 	$ctrl.chartOptions = {
+		maintainAspectRatio: false,
 		scales: {
 			xAxes: [{
 				stacked: true,
+				ticks: {
+					fontSize: 18
+				}
 			}],
 			yAxes: [{
-				stacked: true
+				stacked: true,
+				ticks: {
+					fontSize: 18
+				}
 			}]
+		},
+		legend: {
+			display: true,
+			labels: {
+				fontSize: 18
+			}
+		},
+		tooltips: {
+			titleFontSize: 18,
+			titleMarginBottom: 12,
+			bodyFontSize: 16,
+			bodySpacing: 8
 		}
 	}
 
 	$ctrl.chartLabels = [];
 	$ctrl.chartData = [];
-	$ctrl.chartSeries = ['bottleCount', 'canCount', 'boxCount'];
+	$ctrl.chartSeries = [' Bottles', ' Cans', ' Boxes'];
 	$ctrl.orderBy = 'bottleCount + canCount + boxCount DESC';
 
 	$ctrl.dataSources = [
@@ -43,32 +62,9 @@ var initStandingsController = function($ctrl, DbService) {
 }
 
 
-function StandingsController($q, DbService) {
+function StandingsController($q, $window, AccountService, DbService) {
 	var $ctrl = initStandingsController(this, DbService);
 	
-
-	// TODO: delete below
-	$ctrl.usersString = "Loading";
-	$ctrl.dormsString = "Loading";
-
-	DbService.query(
-		"SELECT * FROM Users ORDER BY ? + ? + ? DESC", // the query string, standard SQL syntax
-		["bottleCount", "canCount", "boxCount"], // optional: replaces any '?' in query string (pass a string or array)
-												 //   WebSQL doesn't like '?' in some places, so be careful (just use string concats if it doesn't work)
-		["bottleCount", "canCount", "boxCount"]) // optional: returned array will contain the values (not keys) associated with these keys
-												 //   if an array of keys is passed, an array (by key) of arrays (values by row) is returned
-												 //   if a single key (string) is passed, a single array of values is returned
-	.then(function(data) {  // returns a promise; use .then() for callback, .catch() for handling error
-		$ctrl.usersString = JSON.stringify(data);
-	});
-
-	DbService.query("SELECT * FROM Dorms", [], 'name')
-	.then(function(data) {
-		$ctrl.dormsString = JSON.stringify(data);
-	});
-	// TODO: delete above
-
-
 	var buildChartDataQuery = function() {
 		// build SELECT statement
 		switch ($ctrl.dataSource) {
@@ -100,6 +96,9 @@ function StandingsController($q, DbService) {
 		return query;
 	}
 
+    // bind to AccountService functions to get automagic updates
+    $ctrl.isLoggedIn = AccountService.getIsLoggedIn;
+
 	$ctrl.invalidateChart = function() {
 		var query = buildChartDataQuery();
 		var keys = ['name', 'bottleCount', 'canCount', 'boxCount'];
@@ -110,6 +109,9 @@ function StandingsController($q, DbService) {
 			$ctrl.chartData = [data[1], data[2], data[3]]; // keys[1-3]
 		});
 	}
+
+	// reload the graph data when the db changes
+	DbService.addOnChangeListener($ctrl.invalidateChart);
 
 	$ctrl.invalidateChart();
 }

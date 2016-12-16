@@ -1,8 +1,10 @@
-<p>Users: {{$ctrl.usersString}}</p>
-<p>Dorms: {{$ctrl.dormsString}}</p>
+<div id="scan-button" class="center-container">
+    <a class="btn btn-lg btn-primary center"
+       ng-show="$ctrl.isLoggedIn()" href="#!/scan">Scan Recyclables</a>
+</div>
 
 <!-- display controls -->
-<div id="standings-controls">
+<div id="standings-controls" class="row flex-items-xs-middle">
 
     <!-- data source selection (e.g. by individual/dorm) -->
     <span class="dropdown-label">Scores For</span>
@@ -17,7 +19,7 @@
     </div>
 
     <!-- dorm selection (if data source is Individuals) -->
-    <div ng-show="$ctrl.dataSource == 'Individuals'">
+    <div ng-show="$ctrl.dataSource == 'Individuals'" class="row flex-items-xs-middle">
         <span class="dropdown-label">In</span>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -44,7 +46,7 @@
     <div class="checkbox">
         <label>
             <input type="checkbox" value="" ng-model="$ctrl.orderByIsReversed" ng-change="$ctrl.invalidateChart()"/>
-            Reverse
+            in reverse
         </label>
     </div>
 
@@ -52,7 +54,7 @@
 
 <!-- chart -->
 <div id="standings-chart-container">
-    <canvas id="standings-chart" class="chart chart-horizontal-bar"
+    <canvas id="standings-chart" class="chart chart-horizontal-bar" height="800px"
             chart-data="$ctrl.chartData" chart-labels="$ctrl.chartLabels"
             chart-series="$ctrl.chartSeries" chart-options="$ctrl.chartOptions"></canvas>
 </div>

@@ -24,13 +24,101 @@
         },
         {
             "name": "Walter Laseki",
-            "username": "Walter",
-            "password": "Walter",
+            "username": "wlasecki",
+            "password": "wlasecki",
             "dorm": "Northwood",
             "recyclables": {
                 "bottles": 9,
                 "cans": 0,
                 "boxes": 0
+            }
+        },
+        {
+            "name": "Rich Starbuck",
+            "username": "rstarbuc",
+            "password": "rstarbuc",
+            "dorm": "Northwood",
+            "recyclables": {
+                "bottles": 12,
+                "cans": 4,
+                "boxes": 7
+            }
+        },
+        {
+            "name": "Michael Bremerkamp",
+            "username": "mbrem",
+            "password": "mbrem",
+            "dorm": "Bursley Hall",
+            "recyclables": {
+                "bottles": 4,
+                "cans": 4,
+                "boxes": 3
+            }
+        },
+        {
+            "name": "Eddie Ye",
+            "username": "edwardye",
+            "password": "edwardye",
+            "dorm": "Oxford Houses",
+            "recyclables": {
+                "bottles": 1,
+                "cans": 2,
+                "boxes": 3
+            }
+        },
+        {
+            "name": "Justin Ruloff",
+            "username": "jruloff",
+            "password": "jruloff",
+            "dorm": "North Quad",
+            "recyclables": {
+                "bottles": 14,
+                "cans": 2,
+                "boxes": 4
+            }
+        },
+        {
+            "name": "Mike Ross",
+            "username": "mmdross",
+            "password": "mmdross",
+            "dorm": "Bursley Hall",
+            "recyclables": {
+                "bottles": 0,
+                "cans": 0,
+                "boxes": 1
+            }
+        },
+        {
+            "name": "Big Poppa",
+            "username": "bigpoppa",
+            "password": "bigpoppa",
+            "dorm": "East Quad",
+            "recyclables": {
+                "bottles": 2,
+                "cans": 1,
+                "boxes": 0
+            }
+        },
+        {
+            "name": "Taylor Swift",
+            "username": "taytay",
+            "password": "taytay",
+            "dorm": "North Quad",
+            "recyclables": {
+                "bottles": 2,
+                "cans": 5,
+                "boxes": 3
+            }
+        },
+        {
+            "name": "Albert Johnson",
+            "username": "albie",
+            "password": "albie",
+            "dorm": "Baits Houses",
+            "recyclables": {
+                "bottles": 6,
+                "cans": 3,
+                "boxes": 3
             }
         }
     ]

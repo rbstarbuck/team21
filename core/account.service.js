@@ -21,8 +21,8 @@ function AccountService($q, DbService) {
     self.doesUserExist = function(username) {
         var deferred = $q.defer();
 
-        var query = 'SELECT COUNT(*) FROM Users WHERE username=?';
-        DbService.query(query, username)
+        var query = 'SELECT COUNT(*) AS count FROM Users WHERE username=?';
+        DbService.query(query, username, 'count')
         .then(function(count) {
             deferred.resolve(count > 0);
         }).catch(function(err) {

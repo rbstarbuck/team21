@@ -1,0 +1,22 @@
+#standings-controls,
+#standings-chart-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+#scan-button {
+	margin-bottom: 2em;
+}
+
+#standings-chart-container {
+	margin-top: 1em;
+}
+
+.dropdown-label {
+    margin: 0 0.75em 0 1.5em;
+}
+
+#standings-controls .checkbox {
+    margin: 0.35em 0 0 0.75em;
+}
