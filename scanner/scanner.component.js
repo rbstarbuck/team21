@@ -1,7 +1,7 @@
 var team21App = angular.module('team21App');
 
 
-function ScannerController() {
+function ScannerController($location, $window) {
 	var $ctrl = this;
 
     // use these functions for getting the current user
@@ -33,8 +33,9 @@ function ScannerController() {
     }
 
     $ctrl.scannerDetectedCallback = function(data) {
-      window.alert(data.codeResult.code);
       Quagga.stop();
+      window.alert(data.codeResult.code);
+      $window.location.href = '#!/';
     }
 
     // use this to update any recyclable counts being displayed on the page via SELECT query
