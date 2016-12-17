@@ -28,12 +28,14 @@ function DbService($q, $http) {
             // get db initialization data
             $q.all([
                 $http.get('core/users.data.json'),
-                $http.get('core/dorms.data.json')
+                $http.get('core/dorms.data.json'),
+                $http.get('core/recyclables.data.json')
             // fill tables with initialization data
             ]).then(function(data) {
                 var users = data[0].data.data;
                 var dorms = data[1].data.data;
-                
+                var recyclables = data[2].data.data;
+
                 // perform SQL queries to make tables
                 db.transaction(function(tx) {
                     // make and fill Users table
@@ -51,6 +53,12 @@ function DbService($q, $http) {
                     for (var i = 0; i < dorms.length; ++i) {
                         var dorm = dorms[i];
                         tx.executeSql('INSERT INTO Dorms VALUES (?)', [dorm]);
+                    }
+
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS Recyclables (code PRIMARY KEY)');
+                    for (var i = 0; i < recyclables.length; ++i) {
+                        var recyclable = recyclables[i];
+                        tx.executeSql('INSERT INTO Recyclables VALUES (?)', [recyclable]);
                     }
 
                     // done, resolve promise

@@ -1,7 +1,7 @@
 var team21App = angular.module('team21App');
 
 
-function ScannerController($location, $window) {
+function ScannerController($location, $window, DBService) {
 	var $ctrl = this;
 
     // use these functions for getting the current user
