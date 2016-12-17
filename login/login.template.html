@@ -7,5 +7,6 @@
 <!-- Controls after logging in -->
 <div id="logout-controls" class="row flex-items-xs-middle" ng-show="$ctrl.isLoggedIn()">
     <span>Logged in as {{$ctrl.currentUser().username}}</span>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.open('profile')">My Profile</button>
     <button type="button" class="btn btn-primary" ng-click="$ctrl.logout()">Logout</button>
 </div>

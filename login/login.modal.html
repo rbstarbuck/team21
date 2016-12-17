@@ -1,12 +1,30 @@
-<!-- swap 'login' and 'register' elements with ngSwitch -->
+<!-- swap 'profile', 'login', and 'register' elements with ngSwitch -->
 <form ng-switch="$ctrl.mode">
 
     <!-- header -->
     <div class="modal-header">
         <button type="button" class="close" ng-click="$ctrl.close()">&times;</button>
 
+        <h3 ng-switch-when="profile" class="modal-title" id="modal-title">My Profile</h3>
         <h3 ng-switch-when="login" class="modal-title" id="modal-title">Login</h3>
         <h3 ng-switch-when="register" class="modal-title" id="modal-title">Register</h3>
+    </div>
+
+    <!-- body (profile mode) -->
+    <div ng-switch-when="profile" class="modal-body row flex-items-xs-middle">
+        <div class="col-sm-8 col-xs-4">
+            <img src={{$ctrl.currentUser.pic}}>
+        </div>
+
+        <div class="col-sm-8 col-xs-4">Name: 
+            <span ng-bind="$ctrl.currentUser.name"></span>
+        </div>
+        <div class="col-sm-8 col-xs-4">Dorm: 
+            <span ng-bind="$ctrl.currentUser.dorm"></span>
+        </div>
+        <div class="col-sm-8 col-xs-4">Individual Progress: 
+            
+        </div>
     </div>
 
     <!-- body (login mode) -->

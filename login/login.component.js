@@ -120,6 +120,10 @@ function LoginModalController($q, $uibModalInstance, AccountService, DbService, 
             }
         });
     }
+
+    if ($ctrl.mode == 'profile') {
+        $ctrl.currentUser = AccountService.getCurrentUser();
+    }
 }
 
 
