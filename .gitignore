@@ -13,3 +13,5 @@
 # Whitelist
 !.gitignore
  
+*.xml
+.idea/team21.iml

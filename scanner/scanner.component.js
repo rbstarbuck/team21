@@ -9,10 +9,40 @@ function ScannerController() {
     $ctrl.isLoggedIn = AccountService.getIsLoggedIn;
     $ctrl.currentUser = AccountService.getCurrentUser; // null if not logged in, else an object like {username: string, name: string, bottleCount: int, ...}
 
+    $ctrl.openScanner = function() {
+      Quagga.init({
+          inputStream : {
+            name : "Live",
+            type : "LiveStream",
+            target: document.querySelector('#scannerDiv')    // Or '#yourElement' (optional)
+          },
+          decoder : {
+            readers : ["upc_reader"]
+          }
+        },
+        function(err) {
+          if (err) {
+            console.log(err);
+            return
+          }
+          console.log("Initialization finished. Ready to start");
+          Quagga.start();
+        }
+      );
+      Quagga.onDetected($ctrl.scannerDetectedCallback);
+    }
+
+    $ctrl.scannerDetectedCallback = function(data) {
+      window.alert(data.codeResult.code);
+      Quagga.stop();
+    }
+
     // use this to update any recyclable counts being displayed on the page via SELECT query
     $ctrl.updateCounts = function() {
 
     }
+
+    $ctrl.openScanner();
 
     // ...and now, the counts will automatically update if you INSERT, DELETE, or UPDATE the db after an item is scanned
 	DbService.addOnChangeListener($ctrl.updateCounts);
