@@ -20,17 +20,20 @@
 
      <!-- body (profile mode) -->
     <div ng-switch-when="profile" class="modal-body row flex-items-xs-middle">
-        <div class="col-sm-8 col-xs-4">
-            <img ng-src={{$ctrl.currentUser.pic}} style="max-width:500px">
+        <div class="col-sm-8 col-xs-4" style="padding-left:17%">
+            <img ng-src={{$ctrl.currentUser.pic}} style="max-width:400px; max-height:400px">
         </div>
 
-        <div class="col-sm-8 col-xs-4">Name: 
+        <div class="col-sm-8 col-xs-4" style="float:top; margin-top:5px">Name: 
             <span ng-bind="$ctrl.currentUser.name"></span>
         </div>
-        <div class="col-sm-8 col-xs-4">Dorm: 
+        <div class="col-sm-8 col-xs-4" style="float:top; margin-top:5px">Dorm: 
             <span ng-bind="$ctrl.currentUser.dorm"></span>
         </div>
-        <div class="col-sm-8 col-xs-4">Individual Progress: 
+        <div class="col-sm-8 col-xs-4" style="float:top; margin-top:5px">Individual Progress: <br>
+           Bottles Recycled: {{$ctrl.currentUser.bottleCount}} <br>
+           Cans Recycled: {{$ctrl.currentUser.canCount}} <br>
+           Boxes Recycled: {{$ctrl.currentUser.boxCount}}
             
         </div>
     </div>

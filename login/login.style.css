@@ -34,3 +34,8 @@
 .form-footer-message {
     margin-top: 1em;
 }
+
+#profpicholder {
+  display: flex;
+  justify-content: center;
+}
