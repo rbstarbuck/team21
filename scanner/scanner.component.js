@@ -1,14 +1,14 @@
 var team21App = angular.module('team21App');
 
 
-function ScannerController($location, $window, DBService) {
+function ScannerController($location, $window, DbService, AccountService) {
 	var $ctrl = this;
 
     // use these functions for getting the current user
     // you can bind them to the template and they'll update automatically, e.g. to ngHide parts that require a user to be logged in
-    $ctrl.isLoggedIn = AccountService.getIsLoggedIn;
-    $ctrl.currentUser = AccountService.getCurrentUser; // null if not logged in, else an object like {username: string, name: string, bottleCount: int, ...}
-
+    $ctrl.isLoggedIn = AccountService.getIsLoggedIn();
+    $ctrl.currentUser = AccountService.getCurrentUser(); // null if not logged in, else an object like {username: string, name: string, bottleCount: int, ...}
+    
     $ctrl.openScanner = function() {
       Quagga.init({
           inputStream : {
@@ -32,9 +32,12 @@ function ScannerController($location, $window, DBService) {
       Quagga.onDetected($ctrl.scannerDetectedCallback);
     }
 
+    var type = 'bottle'
+
     $ctrl.scannerDetectedCallback = function(data) {
       Quagga.stop();
       window.alert(data.codeResult.code);
+      DbService.addRecyclable($ctrl.currentUser, data.codeResult.code, type)
       $window.location.href = '#!/';
     }
 

@@ -15,7 +15,6 @@ function DbService($q, $http) {
             onChangeListeners[i]();
         }
     }
-
     var dbCache = null;
     self.getDb = function() {
         if (!dbCache) { // first getDb() call, initialize cache
@@ -128,6 +127,19 @@ function DbService($q, $http) {
         })
 
         return deferred.promise;
+    }
+
+    self.addRecyclable = function(user, code, type){
+        console.log("hello")
+        var name = user.username
+            // creates new db if none exists, else opens existing db
+            var db = openDatabase('team21db', '1.0', 'EECS 493 Team 21 DB', 2 * 1024 * 1024);
+            // perform SQL queries to make tables
+            db.transaction(function(tx) {
+                // make and fill Users table
+                tx.executeSql('INSERT INTO Recyclables VALUES(?)', [code]);
+                tx.executeSql('UPDATE Users SET bottleCount=7 WHERE username=name')
+            });
     }
 }
 
