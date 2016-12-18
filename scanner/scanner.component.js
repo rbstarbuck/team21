@@ -41,18 +41,15 @@ function ScannerController($location, $window, DbService, AccountService) {
 
     $ctrl.scannerDetectedCallback = function(data) {
       Quagga.stop();
-      window.alert(data.codeResult.code);
       DbService.addRecyclable({user: $ctrl.currentUser, data: data.codeResult.code, recType: $ctrl.type}, function(result){
-        console.log(result);
         if (result == 'exists')
         {
-          window.alert("Barcode already exists! Please rescan.");
-          $window.location.href = '#!/';
+          $window.location.href = '#!/?exists=1';
 
         }
         else
         {
-          $window.location.href = '#!/';
+          $window.location.href = '#!/?success=' + data.codeResult.code;
         }
       });
       

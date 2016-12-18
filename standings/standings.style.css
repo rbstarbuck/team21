@@ -20,3 +20,13 @@
 #standings-controls .checkbox {
     margin: 0.35em 0 0 0.75em;
 }
+
+.success
+{
+	color:green;
+}
+
+.fail
+{
+	color:red;
+}

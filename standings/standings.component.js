@@ -64,6 +64,68 @@ var initStandingsController = function($ctrl, DbService) {
 
 function StandingsController($q, $window, AccountService, DbService) {
 	var $ctrl = initStandingsController(this, DbService);
+
+	$ctrl.clicked = false;
+	$ctrl.messageText = "";
+	$ctrl.success = false;
+
+	function gup(name) {
+      name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+      var regexS = "[\\?&]"+name+"=([^&#]*)";
+      var regex = new RegExp(regexS);
+      var results = regex.exec(window.location.href);
+      if(results == null)
+        return null;
+      else
+        return unescape(results[1]);
+    }
+
+    $ctrl.showMessage = function()
+    {
+    	if ($ctrl.clicked == true)
+    	{
+    		return true;
+    	}
+
+    	else
+    	{
+    		return false;
+    	}
+    }
+
+    $ctrl.chooseStyle = function()
+    {
+    	if ($ctrl.success)
+    	{
+    		return "success"
+    	}
+
+    	else
+    	{
+    		return "fail"
+    	}
+    }
+
+    function checkParams()
+    {
+    	var params = "";
+
+    	if (gup('success') != null)
+    	{
+    		console.log("success");
+    		$ctrl.clicked = true
+    		$ctrl.success = true
+    		$ctrl.messageText = "Success! You have logged an item with barcode " + gup('success');
+    	}
+
+    	else if (gup('exists') != null)
+    	{
+    		console.log("exists");
+    		$ctrl.clicked = true
+    		$ctrl.success = false
+    		$ctrl.messageText = "Sorry! This item has already been logged. Try again with a different item!"
+    	}
+    }
 	
 	var buildChartDataQuery = function() {
 		// build SELECT statement
@@ -109,6 +171,8 @@ function StandingsController($q, $window, AccountService, DbService) {
 			$ctrl.chartData = [data[1], data[2], data[3]]; // keys[1-3]
 		});
 	}
+
+	checkParams();
 
 	// reload the graph data when the db changes
 	DbService.addOnChangeListener($ctrl.invalidateChart);
