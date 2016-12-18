@@ -115,7 +115,7 @@ function StandingsController($q, $window, AccountService, DbService) {
     		console.log("success");
     		$ctrl.clicked = true
     		$ctrl.success = true
-    		$ctrl.messageText = "Success! You have logged an item with barcode " + gup('success');
+    		$ctrl.messageText = "Success! You have logged an item with barcode " + gup('success') + ".";
     	}
 
     	else if (gup('exists') != null)
