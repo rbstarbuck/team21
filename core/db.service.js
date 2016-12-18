@@ -130,7 +130,6 @@ function DbService($q, $http) {
     }
 
     self.addRecyclable = function(user, code, type){
-        console.log("hello")
         var name = user.username
             // creates new db if none exists, else opens existing db
             var db = openDatabase('team21db', '1.0', 'EECS 493 Team 21 DB', 2 * 1024 * 1024);
@@ -138,7 +137,7 @@ function DbService($q, $http) {
             db.transaction(function(tx) {
                 // make and fill Users table
                 tx.executeSql('INSERT INTO Recyclables VALUES(?)', [code]);
-                tx.executeSql('UPDATE Users SET bottleCount=7 WHERE username=name')
+                tx.executeSql('UPDATE Users SET bottleCount=bottleCount+1 WHERE username=?',[name])
             });
     }
 }
