@@ -1,11 +1,11 @@
 <!-- Controls before logging in -->
-<div id="login-controls" class="row flex-items-xs-middle" ng-hide="$ctrl.isLoggedIn()">
+<div id="login-controls" class="row flex-items-xs-middle nvbar" ng-hide="$ctrl.isLoggedIn()">
 	<button type="button" class="btn btn-default" ng-click="$ctrl.open('whatisthis')">What is this?</button>
     <button type="button" class="btn btn-primary" ng-click="$ctrl.open('login')">Login</button>
     <button type="button" class="btn btn-primary" ng-click="$ctrl.open('register')">Register</button>
 </div>
 <!-- Controls after logging in -->
-<div id="logout-controls" class="row flex-items-xs-middle" ng-show="$ctrl.isLoggedIn()">
+<div id="logout-controls" class="row flex-items-xs-middle nvbar" ng-show="$ctrl.isLoggedIn()">
 	<button type="button" class="btn btn-default" ng-click="$ctrl.open('whatisthis')" style="margin-right:10px">What is this?</button>
     <span>Logged in as {{$ctrl.currentUser().username}}</span>
     <button type="button" class="btn btn-primary" ng-click="$ctrl.open('profile')">Profile</button>

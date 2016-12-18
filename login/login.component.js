@@ -144,6 +144,15 @@ function LoginModalController($q, $uibModalInstance, AccountService, DbService, 
 
     if ($ctrl.mode == 'profile') {
         $ctrl.currentUser = AccountService.getCurrentUser();
+
+        DbService.query('SELECT * FROM Users WHERE username=?', [$ctrl.currentUser.username])
+          .then(function(results) {
+              $ctrl.bottleCount = results[0].bottleCount;
+              $ctrl.canCount = results[0].canCount;
+              $ctrl.boxCount = results[0].boxCount;
+          }).catch(function(err) {
+            console.log(err);
+        });
     }
 }
 
