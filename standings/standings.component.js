@@ -65,6 +65,8 @@ var initStandingsController = function($ctrl, DbService) {
 function StandingsController($q, $window, AccountService, DbService) {
 	var $ctrl = initStandingsController(this, DbService);
 
+	$ctrl.scanned = {}
+
 	$ctrl.clicked = false;
 	$ctrl.messageText = "";
 	$ctrl.success = false;
@@ -84,7 +86,14 @@ function StandingsController($q, $window, AccountService, DbService) {
     {
     	if ($ctrl.clicked == true && AccountService.getIsLoggedIn())
     	{
-    		return true;
+    		if (AccountService.getCurrentUser().name in $ctrl.scanned)
+    		{
+    			if ($ctrl.scanned[AccountService.getCurrentUser().name] == true)
+    			{
+    				return true;
+    				$ctrl.scanned[AccountService.getCurrentUser().name] == false
+    			}
+    		}
     	}
 
     	else
@@ -108,6 +117,16 @@ function StandingsController($q, $window, AccountService, DbService) {
 
     function checkParams()
     {
+    	if (AccountService.getIsLoggedIn())
+    	{
+    		$ctrl.scanned[AccountService.getCurrentUser().name] = true
+    		for (i in Object.keys($ctrl.scanned))
+    		{
+    			if (i != $ctrl.scanned[AccountService.getCurrentUser().name])
+    			$ctrl.scanned[i] = false;
+    		}
+    	}
+    	
     	var params = "";
 
     	if (gup('success') != null)

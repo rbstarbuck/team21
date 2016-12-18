@@ -21,7 +21,7 @@ team21App.directive("fileread", [function () {
 }]);
 
 
-function LoginController($uibModal, AccountService) {
+function LoginController($uibModal, $window, AccountService) {
     var $ctrl = this;
 
     // bind to AccountService functions to get automagic updates
@@ -43,6 +43,8 @@ function LoginController($uibModal, AccountService) {
 
     $ctrl.logout = function() {
         AccountService.logout();
+        $window.location.href = "#!/"
+
     }
 }
 
