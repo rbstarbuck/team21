@@ -82,7 +82,7 @@ function StandingsController($q, $window, AccountService, DbService) {
 
     $ctrl.showMessage = function()
     {
-    	if ($ctrl.clicked == true)
+    	if ($ctrl.clicked == true && AccountService.getIsLoggedIn())
     	{
     		return true;
     	}
