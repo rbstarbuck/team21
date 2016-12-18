@@ -8,6 +8,7 @@ function ScannerController($location, $window, DbService, AccountService) {
     // you can bind them to the template and they'll update automatically, e.g. to ngHide parts that require a user to be logged in
     $ctrl.isLoggedIn = AccountService.getIsLoggedIn();
     $ctrl.currentUser = AccountService.getCurrentUser(); // null if not logged in, else an object like {username: string, name: string, bottleCount: int, ...}
+    $ctrl.type = 'bottle'
 
     $ctrl.openScanner = function() {
       Quagga.init({
@@ -32,8 +33,6 @@ function ScannerController($location, $window, DbService, AccountService) {
       Quagga.onDetected($ctrl.scannerDetectedCallback);
     }
 
-    var type = 'boxCount'
-
     $ctrl.stopQuagga = function()
     {
       Quagga.stop();
@@ -43,10 +42,20 @@ function ScannerController($location, $window, DbService, AccountService) {
     $ctrl.scannerDetectedCallback = function(data) {
       Quagga.stop();
       window.alert(data.codeResult.code);
-      DbService.addRecyclable({user: $ctrl.currentUser, data: data.codeResult.code, recType: type}, function(result){
+      DbService.addRecyclable({user: $ctrl.currentUser, data: data.codeResult.code, recType: $ctrl.type}, function(result){
         console.log(result);
+        if (result == 'exists')
+        {
+          window.alert("Barcode already exists! Please rescan.");
+          $window.location.href = '#!/';
+
+        }
+        else
+        {
+          $window.location.href = '#!/';
+        }
       });
-      $window.location.href = '#!/';
+      
     }
 
     // use this to update any recyclable counts being displayed on the page via SELECT query

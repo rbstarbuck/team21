@@ -3,6 +3,14 @@
 <div style="text-align:center">
 <h1>Scanner</h1>
 <p><button type="button" class='btn btn-primary' ng-click="$ctrl.stopQuagga()">Back to main page</button></p>
+<h5>What type of recyclable are you recycling?</h5>
+<div>
+<form action="">
+<span style="margin:5px" ><input type="radio" name="type" ng-model="$ctrl.type" checked="checked" value="bottle">Bottle</input></span>
+<span style="margin:5px" ><input type="radio" ng-model="$ctrl.type" name="type" value="can">Can</input></span>
+<span style="margin:5px"><input type="radio" ng-model="$ctrl.type" name="type" value="box">Box</input></span>
+</form>
+</div>
 </div>
 
 <div style="padding-left:27%">

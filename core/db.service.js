@@ -150,11 +150,11 @@ function DbService($q, $http) {
                     // make and fill Users table
                     tx.executeSql('INSERT INTO Recyclables VALUES(?)', [code]);
 
-                    if (type == 'bottleCount') {
+                    if (type == 'bottle') {
                         tx.executeSql('UPDATE Users SET bottleCount=bottleCount+1 WHERE username=?', [name]);
                     }
 
-                    else if (type == 'canCount') {
+                    else if (type == 'can') {
                         tx.executeSql('UPDATE Users SET canCount=canCount+1 WHERE username=?', [name]);
                     }
 
