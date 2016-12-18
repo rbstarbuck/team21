@@ -137,7 +137,21 @@ function DbService($q, $http) {
             db.transaction(function(tx) {
                 // make and fill Users table
                 tx.executeSql('INSERT INTO Recyclables VALUES(?)', [code]);
-                tx.executeSql('UPDATE Users SET bottleCount=bottleCount+1 WHERE username=?',[name])
+
+                if (type == 'bottleCount')
+                {
+                    tx.executeSql('UPDATE Users SET bottleCount=bottleCount+1 WHERE username=?', [name]);
+                }
+
+                else if (type == 'canCount')
+                {
+                    tx.executeSql('UPDATE Users SET canCount=canCount+1 WHERE username=?', [name]);
+                }
+                
+                else
+                {
+                    tx.executeSql('UPDATE Users SET boxCount=boxCount+1 WHERE username=?', [name]);
+                }
             });
     }
 }

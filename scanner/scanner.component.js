@@ -8,7 +8,7 @@ function ScannerController($location, $window, DbService, AccountService) {
     // you can bind them to the template and they'll update automatically, e.g. to ngHide parts that require a user to be logged in
     $ctrl.isLoggedIn = AccountService.getIsLoggedIn();
     $ctrl.currentUser = AccountService.getCurrentUser(); // null if not logged in, else an object like {username: string, name: string, bottleCount: int, ...}
-    
+
     $ctrl.openScanner = function() {
       Quagga.init({
           inputStream : {
@@ -32,7 +32,13 @@ function ScannerController($location, $window, DbService, AccountService) {
       Quagga.onDetected($ctrl.scannerDetectedCallback);
     }
 
-    var type = 'bottle'
+    var type = 'boxCount'
+
+    $ctrl.stopQuagga = function()
+    {
+      Quagga.stop();
+      $window.location.href='#!/';
+    }
 
     $ctrl.scannerDetectedCallback = function(data) {
       Quagga.stop();
