@@ -1,6 +1,26 @@
 var team21App = angular.module('team21App');
 
 
+team21App.directive("fileread", [function () {
+    return {
+        scope: {
+            fileread: "="
+        },
+        link: function (scope, element, attributes) {
+            element.bind("change", function (changeEvent) {
+                var reader = new FileReader();
+                reader.onload = function (loadEvent) {
+                    scope.$apply(function () {
+                        scope.fileread = loadEvent.target.result;
+                    });
+                }
+                reader.readAsDataURL(changeEvent.target.files[0]);
+            });
+        }
+    }
+}]);
+
+
 function LoginController($uibModal, AccountService) {
     var $ctrl = this;
 
@@ -53,7 +73,7 @@ function LoginModalController($q, $uibModalInstance, AccountService, DbService, 
 
     var validateRegisterForm = function() {
         var deferred = $q.defer();
-
+ 
         if (typeof($ctrl.registerUsername) === 'undefined' || $ctrl.registerUsername.length == 0) {
             deferred.resolve("Please enter your uniqname.");
         }
@@ -66,6 +86,7 @@ function LoginModalController($q, $uibModalInstance, AccountService, DbService, 
         else if (typeof($ctrl.registerPassword) === 'undefined' || $ctrl.registerPassword.length < 6) {
             deferred.resolve("Passwords must be at least six characters long.");
         }
+
         else {
             AccountService.doesUserExist($ctrl.registerUsername)
             .then(function(doesExist) {
@@ -111,7 +132,7 @@ function LoginModalController($q, $uibModalInstance, AccountService, DbService, 
         .then(function(errorMessage) {
             $ctrl.registerErrorMessage = errorMessage;
             if (errorMessage == null) {
-                AccountService.createUser($ctrl.registerUsername, $ctrl.registerPassword, $ctrl.registerDisplayName, $ctrl.registerDorm)
+                AccountService.createUser($ctrl.registerUsername, $ctrl.registerPassword, $ctrl.registerDisplayName, $ctrl.registerDorm, $ctrl.registerPic)
                 .then(function() {
                     $ctrl.loginUsername = $ctrl.registerUsername;
                     $ctrl.loginPassword = $ctrl.registerPassword;
@@ -119,6 +140,10 @@ function LoginModalController($q, $uibModalInstance, AccountService, DbService, 
                 })
             }
         });
+    }
+
+    if ($ctrl.mode == 'profile') {
+        $ctrl.currentUser = AccountService.getCurrentUser();
     }
 }
 

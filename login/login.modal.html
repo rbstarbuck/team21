@@ -5,6 +5,7 @@
     <div class="modal-header">
         <button type="button" class="close" ng-click="$ctrl.close()">&times;</button>
 
+        <h3 ng-switch-when="profile" class="modal-title" id="modal-title">My Profile</h3>
         <h3 ng-switch-when="whatisthis" class="modal-title" id="modal-title">What is this?</h3>
         <h3 ng-switch-when="login" class="modal-title" id="modal-title">Login</h3>
         <h3 ng-switch-when="register" class="modal-title" id="modal-title">Register</h3>
@@ -15,6 +16,26 @@
     <div style="text-align:center; padding:10px"><h5>Welcome to recyclical!</h5> This is a web application for an inter-dorm recycling competition on the University of Michigan - Ann Arbor campus. The dorm that recycles the most at the end of the duration of the competition will be victorious!<br><br>The app works by using a barcode scanner to count recyclables for each individual/dorm. If you haven't done so yet, register in the top right. As soon as you are registered, you will be able to start scanning recyclables. Each recycable scanned will count toward your individual total as well as your dorm total. You may view the progress of users as well as dorms on the main page. <h5>Happy recycling!</h5>
     </div>
     </div>
+
+
+     <!-- body (profile mode) -->
+    <div ng-switch-when="profile" class="modal-body row flex-items-xs-middle">
+        <div class="col-sm-8 col-xs-4">
+            <img ng-src={{$ctrl.currentUser.pic}} style="max-width:500px">
+        </div>
+
+        <div class="col-sm-8 col-xs-4">Name: 
+            <span ng-bind="$ctrl.currentUser.name"></span>
+        </div>
+        <div class="col-sm-8 col-xs-4">Dorm: 
+            <span ng-bind="$ctrl.currentUser.dorm"></span>
+        </div>
+        <div class="col-sm-8 col-xs-4">Individual Progress: 
+            
+        </div>
+    </div>
+
+
     <!-- body (login mode) -->
     <div ng-switch-when="login" class="modal-body row flex-items-xs-middle">
         <div class="col-sm-2 col-xs-4 login-form-label">Uniqname</div>
@@ -55,6 +76,12 @@
             </div>
         </div>
 
+        <div class="col-sm-4 col-xs-5 login-form-label">Profile Picture</div>
+        <div class="col-sm-8 col-xs-7 login-form-input">
+            <input type="file" id="profpic" class='form-control' fileread="$ctrl.registerPic"/>
+        </div>
+
+        
         <div class="col-sm-4 col-xs-5 login-form-label">Display Name</div>
         <div class="col-sm-8 col-xs-7 login-form-input">
             <input type="text" class="form-control"

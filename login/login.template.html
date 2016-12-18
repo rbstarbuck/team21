@@ -8,5 +8,6 @@
 <div id="logout-controls" class="row flex-items-xs-middle" ng-show="$ctrl.isLoggedIn()">
 	<button type="button" class="btn btn-default" ng-click="$ctrl.open('whatisthis')" style="margin-right:10px">What is this?</button>
     <span>Logged in as {{$ctrl.currentUser().username}}</span>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.open('profile')">Profile</button>
     <button type="button" class="btn btn-primary" ng-click="$ctrl.logout()">Logout</button>
 </div>

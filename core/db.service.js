@@ -38,11 +38,12 @@ function DbService($q, $http) {
                 // perform SQL queries to make tables
                 db.transaction(function(tx) {
                     // make and fill Users table
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS Users (username PRIMARY KEY, password, name, dorm, bottleCount, canCount, boxCount)');
+                    
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS Users (username PRIMARY KEY, password, name, dorm, pic, bottleCount, canCount, boxCount)');
                     for (var i = 0; i < users.length; ++i) {
                         var user = users[i];
-                        tx.executeSql('INSERT INTO Users VALUES (?, ?, ?, ?, ?, ?, ?)',
-                            [user.username, user.password, user.name, user.dorm,
+                        tx.executeSql('INSERT INTO Users VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                            [user.username, user.password, user.name, user.dorm, user.pic,
                              user.recyclables.bottles, user.recyclables.cans, user.recyclables.boxes]
                         );
                     }

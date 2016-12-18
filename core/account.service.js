@@ -62,11 +62,11 @@ function AccountService($q, DbService) {
         currentUser = null;
     }
 
-    self.createUser = function(username, password, displayName, dorm) {
+    self.createUser = function(username, password, displayName, dorm, pic) {
         var deferred = $q.defer();
 
-        var query = 'INSERT INTO Users (username, password, name, dorm, bottleCount, canCount, boxCount) VALUES (?, ?, ?, ?, 0, 0, 0)';
-        DbService.query(query, [username, password, displayName, dorm])
+        var query = 'INSERT INTO Users (username, password, name, dorm, pic, bottleCount, canCount, boxCount) VALUES (?, ?, ?, ?, ?, 0, 0, 0)';
+        DbService.query(query, [username, password, displayName, dorm, pic])
         .then(function(data) {
             deferred.resolve();
         }).catch(function(err) {
