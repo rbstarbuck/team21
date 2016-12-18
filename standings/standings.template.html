@@ -3,6 +3,11 @@
        ng-show="$ctrl.isLoggedIn()" href="#!/scan">Scan Recyclables</a>
 </div>
 
+<div id="message" class="center-container">
+    <h5 ng-bind="$ctrl.messageText" ng-class="$ctrl.chooseStyle()" ng-show="$ctrl.showMessage()"></h5>
+    <br>
+    </div>
+
 <!-- display controls -->
 <div id="standings-controls" class="row flex-items-xs-middle">
 
