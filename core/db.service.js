@@ -130,30 +130,42 @@ function DbService($q, $http) {
         return deferred.promise;
     }
 
-    self.addRecyclable = function(user, code, type){
-        var name = user.username
-            // creates new db if none exists, else opens existing db
-            var db = openDatabase('team21db', '1.0', 'EECS 493 Team 21 DB', 2 * 1024 * 1024);
-            // perform SQL queries to make tables
-            db.transaction(function(tx) {
-                // make and fill Users table
-                tx.executeSql('INSERT INTO Recyclables VALUES(?)', [code]);
+    self.addRecyclable = function(params, success){
+        var name = params.user.username;
+        var code = params.data;
+        var type = params.recType;
+        // creates new db if none exists, else opens existing db
+        var db = openDatabase('team21db', '1.0', 'EECS 493 Team 21 DB', 2 * 1024 * 1024);
 
-                if (type == 'bottleCount')
-                {
-                    tx.executeSql('UPDATE Users SET bottleCount=bottleCount+1 WHERE username=?', [name]);
+        // perform SQL queries to make tables
+        db.transaction(function(tx) {
+            console.log(name);
+            console.log(code);
+            console.log(type);
+            tx.executeSql('SELECT * From Recyclables WHERE code=?', [code], function(tx, results){
+                if(results.rows.length != 0){
+                    success("exists");
                 }
+                else{
+                    // make and fill Users table
+                    tx.executeSql('INSERT INTO Recyclables VALUES(?)', [code]);
 
-                else if (type == 'canCount')
-                {
-                    tx.executeSql('UPDATE Users SET canCount=canCount+1 WHERE username=?', [name]);
-                }
-                
-                else
-                {
-                    tx.executeSql('UPDATE Users SET boxCount=boxCount+1 WHERE username=?', [name]);
+                    if (type == 'bottleCount') {
+                        tx.executeSql('UPDATE Users SET bottleCount=bottleCount+1 WHERE username=?', [name]);
+                    }
+
+                    else if (type == 'canCount') {
+                        tx.executeSql('UPDATE Users SET canCount=canCount+1 WHERE username=?', [name]);
+                    }
+
+                    else {
+                        tx.executeSql('UPDATE Users SET boxCount=boxCount+1 WHERE username=?', [name]);
+                    }
+                    success("doesn't exist");
                 }
             });
+        });
+
     }
 }
 

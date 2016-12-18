@@ -43,7 +43,9 @@ function ScannerController($location, $window, DbService, AccountService) {
     $ctrl.scannerDetectedCallback = function(data) {
       Quagga.stop();
       window.alert(data.codeResult.code);
-      DbService.addRecyclable($ctrl.currentUser, data.codeResult.code, type)
+      DbService.addRecyclable({user: $ctrl.currentUser, data: data.codeResult.code, recType: type}, function(result){
+        console.log(result);
+      });
       $window.location.href = '#!/';
     }
 
